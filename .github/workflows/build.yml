@@ -2,13 +2,11 @@ name: Build container
 
 on:
   push:
-    branches:
-      - master
-    tags:
-      - v*
+    branches: [master]
+    tags: [v*]
   pull_request:
-    branches:
-      - master
+    types: [synchronize, reopened, labeled, unlabeled, closed]
+    branches: [master]
 
 jobs:
   build:
