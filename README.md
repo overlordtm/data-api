@@ -1,4 +1,4 @@
-# slo-covid-19 rest-server2
+# slo-covid-19 rest-server
 Provides REST API to data collected in [csv files](https://github.com/slo-covid-19/data). The sources are [stats](https://api.sledilnik.org/api/stats), 
 [regions](https://api.sledilnik.org/api/regions), [patients](https://api.sledilnik.org/api/patients), 
 [hospitals](https://api.sledilnik.org/api/hospitals), [hospitals-list](https://api.sledilnik.org/api/hospitals-list), 
