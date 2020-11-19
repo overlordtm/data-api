@@ -73,11 +73,15 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
 
+            console.log(JSON.stringify(context.payload))
+
             const releaseName = process.env['RELEASE_NAME']
             const ingressRule = process.env['INGRESS_RULE']
             const imageTag = process.env['IMAGE_TAG']
             const environment = process.env['DEPLOY_ENV']
             const deploymentUrl = process.env['DEPLOY_URL']
+
+            const ref = context.payload.ref || context.payload.head_ref
 
             const payload = {
                 namespace: 'default',
@@ -94,7 +98,7 @@ jobs:
             github.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: context.payload.ref || context.payload.ref_head,
+              ref,
               required_contexts: [],
               environment,
               payload,
