@@ -81,7 +81,11 @@ jobs:
             const environment = process.env['DEPLOY_ENV']
             const deploymentUrl = process.env['DEPLOY_URL']
 
-            const ref = context.payload.ref || context.pull_request.head.ref
+            if (context.pull_request) {
+              const ref = context.pull_request.head.ref
+            } else {
+              const ref = context.payload.ref
+            }
 
             const payload = {
                 namespace: 'default',
