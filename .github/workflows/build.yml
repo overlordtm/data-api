@@ -115,4 +115,4 @@ jobs:
         uses: strumwolf/delete-deployment-environment@v1.01
         with:
           token: ${{ github.token }}
-          environment: pr-${{ github.event.pull_request.number }}
+          environment: ${{ env.DEPLOY_ENV }}
