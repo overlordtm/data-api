@@ -81,7 +81,13 @@ jobs:
             const environment = process.env['DEPLOY_ENV']
             const deploymentUrl = process.env['DEPLOY_URL']
 
-            const ref = context.payload.ref || context.pull_request.head.ref
+            let ref = ""
+
+            if (context.payload.pull_request) {
+              ref = context.payload.pull_request.head.ref
+            } else {
+              ref = context.payload.ref
+            }
 
             const payload = {
                 namespace: 'default',
@@ -103,3 +109,10 @@ jobs:
               environment,
               payload,
             });
+
+      - name: Undeploy
+        if: github.event_name == 'pull_request' && (github.event.action == 'closed' || !contains(github.event.pull_request.labels.*.name, 'deploy-preview'))
+        uses: strumwolf/delete-deployment-environment@v1.01
+        with:
+          token: ${{ github.token }}
+          environment: ${{ env.DEPLOY_ENV }}
