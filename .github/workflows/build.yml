@@ -109,10 +109,3 @@ jobs:
               environment,
               payload,
             });
-
-      - name: Undeploy
-        if: github.event_name == 'pull_request' && (github.event.action == 'closed' || !contains(github.event.pull_request.labels.*.name, 'deploy-preview'))
-        uses: strumwolf/delete-deployment-environment@v1.01
-        with:
-          token: ${{ github.token }}
-          environment: ${{ env.DEPLOY_ENV }}
